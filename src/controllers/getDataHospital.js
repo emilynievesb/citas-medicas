@@ -3,6 +3,7 @@ import {
   getDocBySpeciality,
   getPatientsAlph,
   getDatesProx,
+  getDatesByDoc,
 } from "../services/getServices.js";
 
 const getDocBySpecialityController = async (req, res, next) => {
@@ -47,9 +48,20 @@ const getDatesProxController = async (req, res, next) => {
   }
 };
 
+const getDatesByDocController = async (req, res, next) => {
+  try {
+    const { id_medico } = req.query;
+    const result = await getDatesByDoc(id_medico);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   getDocBySpecialityController,
   getPatientsAlphController,
   getDatesAlphController,
   getDatesProxController,
+  getDatesByDocController,
 };

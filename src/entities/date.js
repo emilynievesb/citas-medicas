@@ -52,6 +52,26 @@ class Date {
       throw error;
     }
   }
+  async getDatesDoc(med_id) {
+    let sql = /*sql*/ `
+    SELECT u.usu_nombre AS NombrePaciente,
+    u.usu_primer_apellido_usuar AS ApellidoPaciente,
+    c.cit_fecha AS FechaCita,
+    m.med_especialidad AS Especialidad,
+    m.med_consultario AS Consultorio
+    FROM cita c
+    JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    WHERE c.cit_medico = ${med_id};
+    AND c.cit_estadoCita = 2;
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Date };
