@@ -77,6 +77,13 @@ const getDatesByGender = async (genero) => {
   return result;
 };
 
+const getDatesSuspendByMont = async (mes) => {
+  const date = new Date();
+  date.mes = mes;
+  const result = await date.getDatesSuspendByMont();
+  return result;
+};
+
 export {
   getDocBySpeciality,
   getPatientsAlph,
@@ -89,4 +96,5 @@ export {
   getCountDatesByDocDate,
   getConsultorysPatient,
   getDatesByGender,
+  getDatesSuspendByMont,
 };

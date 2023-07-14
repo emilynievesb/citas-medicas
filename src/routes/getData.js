@@ -8,6 +8,7 @@ import {
   getDatesByGenderController,
   getDatesByPatientController,
   getDatesProxController,
+  getDatesSuspendByMontController,
   getDocBySpecialityController,
   getDoctorsConsulController,
   getPatientsAlphController,
@@ -26,6 +27,7 @@ const getInitRoute = () => {
   router.get("/contadordecitas", getCountDatesByDocDateController);
   router.get("/consultoriosdepacientes", getConsultorysPatientController);
   router.get("/citasporgenero", getDatesByGenderController);
+  router.get("/citasrechazas", getDatesSuspendByMontController);
   return router;
 };
 

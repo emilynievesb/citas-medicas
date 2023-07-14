@@ -10,6 +10,7 @@ class Date {
   med_id;
   fecha;
   genero;
+  mes;
   constructor() {}
 
   async getDatesAlf() {
@@ -170,6 +171,24 @@ class Date {
     INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
     INNER JOIN especialidad e ON m.med_especialidad = e.esp_id
     WHERE g.gen_nombre = \"${this.genero}\" AND c.cit_estadoCita=5
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getDatesSuspendByMont() {
+    let sql = /*sql*/ `
+    SELECT c.cit_fecha AS FechaCita,
+    u.usu_nombre AS NombreUsuario,
+    m.med_nombreCompleto AS NombreMedico
+    FROM cita c
+    JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    WHERE MONTH(c.cit_fecha) = ${this.mes}
+    AND c.cit_estadoCita = 8;
     `;
     try {
       const result = await executeQuery(sql);
