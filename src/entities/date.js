@@ -120,6 +120,20 @@ class Date {
       throw error;
     }
   }
+  async getCountDatesByDocDate() {
+    let sql = /*sql*/ `
+    SELECT COUNT(*) AS NumeroCitas
+    FROM cita
+    WHERE cit_medico = ${this.med_id}
+    AND cit_fecha = \"${this.fecha}\";
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Date };
