@@ -1,4 +1,5 @@
 import { Doctor } from "../entities/doctor.js";
+import { Patient } from "../entities/patient.js";
 
 const getDocBySpeciality = async (esp_nombre) => {
   const doctor = new Doctor();
@@ -7,4 +8,10 @@ const getDocBySpeciality = async (esp_nombre) => {
   return result;
 };
 
-export { getDocBySpeciality };
+const getPatientsAlph = async () => {
+  const patient = new Patient();
+  const result = await patient.getPatientsAlf();
+  return result;
+};
+
+export { getDocBySpeciality, getPatientsAlph };
