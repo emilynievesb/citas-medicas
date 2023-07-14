@@ -7,6 +7,7 @@ class Date {
   cit_medico;
   cit_datosUsuario;
   usu_id;
+  med_id;
   constructor() {}
 
   async getDatesAlf() {
@@ -52,7 +53,7 @@ class Date {
       throw error;
     }
   }
-  async getDatesDoc(med_id) {
+  async getDatesDoc() {
     let sql = /*sql*/ `
     SELECT u.usu_nombre AS NombrePaciente,
     u.usu_primer_apellido_usuar AS ApellidoPaciente,
@@ -62,7 +63,7 @@ class Date {
     FROM cita c
     JOIN usuario u ON c.cit_datosUsuario = u.usu_id
     JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
-    WHERE c.cit_medico = ${med_id};
+    WHERE c.cit_medico = ${this.med_id}
     AND c.cit_estadoCita = 2;
     `;
     try {
