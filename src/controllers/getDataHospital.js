@@ -2,11 +2,12 @@ import {
   getDatesAlph,
   getDocBySpeciality,
   getPatientsAlph,
+  getDatesProx,
 } from "../services/getServices.js";
 
 const getDocBySpecialityController = async (req, res, next) => {
   try {
-    const { esp_nombre } = req.query;
+    const { especialidad } = req.query;
     const result = await getDocBySpeciality(esp_nombre);
     res.status(200).json(result);
   } catch (error) {
@@ -32,8 +33,23 @@ const getDatesAlphController = async (req, res, next) => {
   }
 };
 
+const getDatesProxController = async (req, res, next) => {
+  try {
+    const { usuario } = req.query;
+    const result = await getDatesProx(usuario);
+    if (result.length !== 1) {
+      res.status(404).json("El usuario no existe");
+      return;
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   getDocBySpecialityController,
   getPatientsAlphController,
   getDatesAlphController,
+  getDatesProxController,
 };
