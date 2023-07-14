@@ -9,6 +9,7 @@ class Date {
   usu_id;
   med_id;
   fecha;
+  genero;
   constructor() {}
 
   async getDatesAlf() {
@@ -145,6 +146,30 @@ class Date {
     INNER JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
     INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
     WHERE u.usu_id = ${this.usu_id} AND c.cit_estadoCita = 5;
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getDatesByGender() {
+    let sql = /*sql*/ `
+    SELECT u.usu_nombre AS NombrePaciente,
+    u.usu_primer_apellido_usuar AS ApellidoPaciente,
+    g.gen_nombre AS GeneroPaciente,
+    c.cit_fecha AS FechaCita,
+    co.cons_nombre AS NombreConsultorio,
+    e.esp_nombre AS NombreEspecialidad,
+    m.med_nombreCompleto AS NombreMedico
+    FROM cita c
+    INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    INNER JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    INNER JOIN genero g ON u.usu_genero = g.gen_id
+    INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
+    INNER JOIN especialidad e ON m.med_especialidad = e.esp_id
+    WHERE g.gen_nombre = \"${this.genero}\" AND c.cit_estadoCita=5
     `;
     try {
       const result = await executeQuery(sql);

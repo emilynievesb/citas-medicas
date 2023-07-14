@@ -70,6 +70,13 @@ const getConsultorysPatient = async (usu_id) => {
   return result;
 };
 
+const getDatesByGender = async (genero) => {
+  const date = new Date();
+  date.genero = genero;
+  const result = await date.getDatesByGender();
+  return result;
+};
+
 export {
   getDocBySpeciality,
   getPatientsAlph,
@@ -81,4 +88,5 @@ export {
   getDoctorsConsul,
   getCountDatesByDocDate,
   getConsultorysPatient,
+  getDatesByGender,
 };

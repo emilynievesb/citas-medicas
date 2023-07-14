@@ -5,6 +5,7 @@ import {
   getDatesAlphController,
   getDatesByDateController,
   getDatesByDocController,
+  getDatesByGenderController,
   getDatesByPatientController,
   getDatesProxController,
   getDocBySpecialityController,
@@ -24,6 +25,7 @@ const getInitRoute = () => {
   router.get("/medicosyconsultorios", getDoctorsConsulController);
   router.get("/contadordecitas", getCountDatesByDocDateController);
   router.get("/consultoriosdepacientes", getConsultorysPatientController);
+  router.get("/citasporgenero", getDatesByGenderController);
   return router;
 };
 

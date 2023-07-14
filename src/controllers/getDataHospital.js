@@ -9,6 +9,7 @@ import {
   getDoctorsConsul,
   getCountDatesByDocDate,
   getConsultorysPatient,
+  getDatesByGender,
 } from "../services/getServices.js";
 
 const getDocBySpecialityController = async (req, res, next) => {
@@ -127,7 +128,19 @@ const getConsultorysPatientController = async (req, res, next) => {
       return;
     }
     res.status(200).json(result);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const getDatesByGenderController = async (req, res, next) => {
+  try {
+    const { genero } = req.query;
+    const result = await getDatesByGender(genero);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 export {
@@ -141,4 +154,5 @@ export {
   getDoctorsConsulController,
   getCountDatesByDocDateController,
   getConsultorysPatientController,
+  getDatesByGenderController,
 };
