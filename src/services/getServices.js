@@ -42,6 +42,13 @@ const getDatesByPatient = async (usu_id) => {
   return result;
 };
 
+const getDateByDate = async (fecha) => {
+  const date = new Date();
+  date.fecha = fecha;
+  const result = await date.getDatesByDate();
+  return result;
+};
+
 export {
   getDocBySpeciality,
   getPatientsAlph,
@@ -49,4 +56,5 @@ export {
   getDatesProx,
   getDatesByDoc,
   getDatesByPatient,
+  getDateByDate,
 };

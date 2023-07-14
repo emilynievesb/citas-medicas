@@ -8,6 +8,7 @@ class Date {
   cit_datosUsuario;
   usu_id;
   med_id;
+  fecha;
   constructor() {}
 
   async getDatesAlf() {
@@ -87,6 +88,30 @@ class Date {
     INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
     INNER JOIN especialidad e ON m.med_especialidad = e.esp_id
     WHERE c.cit_datosUsuario = ${this.usu_id};
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getDatesByDate() {
+    let sql = /*sql*/ `
+    SELECT u.usu_nombre AS NombrePaciente,
+    u.usu_primer_apellido_usuar AS ApellidoPaciente,
+    c.cit_fecha AS FechaCita,
+    c.cit_estadoCita AS EstadoCita,
+    co.cons_nombre AS NombreConsultorio,
+    e.esp_nombre AS NombreEspecialidad,
+    m.med_nombreCompleto AS NombreMedico
+    FROM cita c
+    INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    INNER JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
+    INNER JOIN especialidad e ON m.med_especialidad = e.esp_id
+    WHERE c.cit_fecha = \"${this.fecha}\"
+    AND c.cit_estadoCita = 2;
     `;
     try {
       const result = await executeQuery(sql);
