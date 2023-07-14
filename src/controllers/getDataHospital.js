@@ -1,4 +1,5 @@
 import {
+  getDatesAlph,
   getDocBySpeciality,
   getPatientsAlph,
 } from "../services/getServices.js";
@@ -21,4 +22,18 @@ const getPatientsAlphController = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
-export { getDocBySpecialityController, getPatientsAlphController };
+
+const getDatesAlphController = async (req, res, next) => {
+  try {
+    const result = await getDatesAlph();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export {
+  getDocBySpecialityController,
+  getPatientsAlphController,
+  getDatesAlphController,
+};
