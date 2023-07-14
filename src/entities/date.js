@@ -134,6 +134,25 @@ class Date {
       throw error;
     }
   }
+  async getConsultorysPatient() {
+    let sql = /*sql*/ `
+    SELECT u.usu_nombre AS NombrePaciente,
+    u.usu_primer_apellido_usuar AS ApellidoPaciente,
+    c.cit_fecha AS FechaCita,
+    co.cons_nombre AS NombreConsultorio
+    FROM cita c
+    INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    INNER JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
+    WHERE u.usu_id = ${this.usu_id} AND c.cit_estadoCita = 5;
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Date };

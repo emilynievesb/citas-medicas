@@ -8,6 +8,7 @@ import {
   getDateByDate,
   getDoctorsConsul,
   getCountDatesByDocDate,
+  getConsultorysPatient,
 } from "../services/getServices.js";
 
 const getDocBySpecialityController = async (req, res, next) => {
@@ -117,6 +118,18 @@ const getCountDatesByDocDateController = async (req, res, next) => {
   }
 };
 
+const getConsultorysPatientController = async (req, res, next) => {
+  try {
+    const { usuario } = req.query;
+    const result = await getConsultorysPatient(usuario);
+    if (result.length === 0) {
+      res.status(200).json("El paciente no ha tenido citas finalizadas");
+      return;
+    }
+    res.status(200).json(result);
+  } catch (error) {}
+};
+
 export {
   getDocBySpecialityController,
   getPatientsAlphController,
@@ -127,4 +140,5 @@ export {
   getDatesByDateController,
   getDoctorsConsulController,
   getCountDatesByDocDateController,
+  getConsultorysPatientController,
 };
