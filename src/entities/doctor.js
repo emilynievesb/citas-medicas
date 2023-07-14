@@ -21,5 +21,19 @@ class Doctor {
       throw error;
     }
   }
+  async getDoctorsConsul() {
+    let sql = /*sql*/ `
+    SELECT m.med_nombreCompleto AS NombreMedico,
+    c.cons_nombre AS NombreConsultorio
+    FROM medico m
+    INNER JOIN consultorio c ON m.med_consultario = c.cons_codigo;
+    `;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export { Doctor };

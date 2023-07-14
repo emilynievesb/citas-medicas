@@ -49,6 +49,12 @@ const getDateByDate = async (fecha) => {
   return result;
 };
 
+const getDoctorsConsul = async () => {
+  const doctor = new Doctor();
+  const result = await doctor.getDoctorsConsul();
+  return result;
+};
+
 export {
   getDocBySpeciality,
   getPatientsAlph,
@@ -57,4 +63,5 @@ export {
   getDatesByDoc,
   getDatesByPatient,
   getDateByDate,
+  getDoctorsConsul,
 };

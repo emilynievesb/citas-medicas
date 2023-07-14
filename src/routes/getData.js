@@ -6,6 +6,7 @@ import {
   getDatesByPatientController,
   getDatesProxController,
   getDocBySpecialityController,
+  getDoctorsConsulController,
   getPatientsAlphController,
 } from "../controllers/getDataHospital.js";
 
@@ -18,6 +19,7 @@ const getInitRoute = () => {
   router.get("/citaspormedico", getDatesByDocController);
   router.get("/citasporpaciente", getDatesByPatientController);
   router.get("/citasporfecha", getDatesByDateController);
+  router.get("/medicosyconsultorios", getDoctorsConsulController);
   return router;
 };
 
