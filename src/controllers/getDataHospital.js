@@ -57,11 +57,25 @@ const getDatesByDocController = async (req, res, next) => {
   try {
     const { id_medico } = req.query;
     const result = await getDatesByDoc(id_medico);
-    res.status(200).json(result);
-    if (result.length !== 1) {
+    if (result.length === 0) {
       res.status(404).json("No tiene citas confirmadas");
       return;
     }
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const getDatesByPatientController = async (req, res, next) => {
+  try {
+    const { usuario } = req.query;
+    const result = await getDatesByPatient(usuario);
+    if (result.length === 0) {
+      res.status(404).json("Este paciente no tiene citas o no existe");
+      return;
+    }
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -73,4 +87,5 @@ export {
   getDatesAlphController,
   getDatesProxController,
   getDatesByDocController,
+  getDatesByPatientController,
 };
