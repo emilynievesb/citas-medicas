@@ -19,6 +19,7 @@ import {
   getDatesProxDTO,
   getDatesByDocDTO,
   getDatesByPatientDTO,
+  getDatesByDateDTO,
 } from "./dto/getDtos.js";
 
 const getInitRoute = () => {
@@ -37,7 +38,7 @@ const getInitRoute = () => {
     getDatesByPatientDTO,
     getDatesByPatientController
   );
-  router.get("/citasporfecha", getDatesByDateController);
+  router.get("/citasporfecha", getDatesByDateDTO, getDatesByDateController);
   router.get("/medicosyconsultorios", getDoctorsConsulController);
   router.get("/contadordecitas", getCountDatesByDocDateController);
   router.get("/consultoriosdepacientes", getConsultorysPatientController);

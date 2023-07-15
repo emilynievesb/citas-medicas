@@ -50,6 +50,23 @@ const getDatesByPatientDTO = async (req, res, next) => {
   }
 };
 
+const getDatesByDateDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      fecha: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
+        )
+        .required("La fecha es requerida"),
+    });
+    await productSchema.validate(req.query);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 const postPatientDTO = async (req, res, next) => {
   try {
     const productSchema = object({
@@ -71,4 +88,5 @@ export {
   getDatesProxDTO,
   getDatesByDocDTO,
   getDatesByPatientDTO,
+  getDatesByDateDTO,
 };
