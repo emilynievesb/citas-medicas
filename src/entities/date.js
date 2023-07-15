@@ -17,13 +17,17 @@ class Date {
     let sql = /*sql*/ `
     SELECT c.cit_codigo AS CodigoCita,
     c.cit_fecha AS FechaCita,
-    c.cit_estadoCita AS EstadoCita,
+    c.cit_estadoCita AS IdEstadoCita,
+    e.estcita_nombre AS EstadoCita,
     c.cit_medico AS MedicoID,
+    m.med_nombreCompleto AS MedicoNombre,
     c.cit_datosUsuario AS UsuarioID,
     u.usu_primer_apellido_usuar AS PrimerApellido,
     u. usu_nombre AS Nombre
     FROM cita c
     INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    INNER JOIN medico m ON c.cit_medico= m.med_nroMatriculaProsional
+    INNER JOIN estado_cita e ON c.cit_estadoCita = e.estcita_id
     ORDER BY u.usu_primer_apellido_usuar, u.usu_nombre;
     `;
     try {
