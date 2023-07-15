@@ -50,7 +50,7 @@ const getDatesProxController = async (req, res, next) => {
     const { usuario } = req.query;
     const result = await getDatesProx(usuario);
     if (result.length !== 1) {
-      res.status(404).json("El usuario no existe");
+      res.status(404).json("El usuario no tiene citas programadas");
       return;
     }
     res.status(200).json(result);
