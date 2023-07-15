@@ -38,6 +38,17 @@ const getDatesByDocDTO = async (req, res, next) => {
     res.status(400).json({ status: "fail", message: error.errors });
   }
 };
+const getDatesByPatientDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      usuario: number().required(),
+    });
+    await productSchema.validate(req.query);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
 
 const postPatientDTO = async (req, res, next) => {
   try {
@@ -55,4 +66,9 @@ const postPatientDTO = async (req, res, next) => {
   }
 };
 
-export { getDocBySpecialityDTO, getDatesProxDTO, getDatesByDocDTO };
+export {
+  getDocBySpecialityDTO,
+  getDatesProxDTO,
+  getDatesByDocDTO,
+  getDatesByPatientDTO,
+};
