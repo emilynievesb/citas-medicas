@@ -16,8 +16,27 @@ class Patient {
   constructor() {}
   async getPatientsAlf() {
     let sql = /*sql*/ `
-    SELECT u.*
-    FROM usuario u
+    SELECT
+    u.usu_id AS UsuarioID,
+    u.usu_nombre AS PrimerNombreUsuario,
+    u.usu_segdo_nombre AS SegundoNombreUsuario,
+    u.usu_primer_apellido_usuar AS PrimerApellidoUsuario,
+    u.usu_segdo_apellido_usuar AS SegundoApellidoUsuario,
+    u.usu_telefono AS UsuarioTelefono,
+    u.usu_direccion AS DireccionUsuario,
+    u.usu_e_mail AS EmailUsuario,
+    u.usu_fechNac AS FechaNacimientoUsuario,
+    g.gen_nombre AS NombreGenero,
+    td.tipdoc_nombre AS NombreTipoDocumento,
+    a.acu_nombreCompleto AS NombreAcudiente
+  FROM
+    usuario u
+  INNER JOIN
+    genero g ON u.usu_genero = g.gen_id
+  INNER JOIN
+    tipo_documento td ON u.usu_tipodoc = td.tipdoc_id
+  INNER JOIN
+    acudiente a ON u.usu_acudiente = a.acu_codigo
     ORDER BY usu_primer_apellido_usuar, usu_nombre;
     `;
     try {

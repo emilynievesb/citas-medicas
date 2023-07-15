@@ -21,7 +21,7 @@ class Date {
     c.cit_medico AS MedicoID,
     c.cit_datosUsuario AS UsuarioID,
     u.usu_primer_apellido_usuar AS PrimerApellido,
-    u. usu_nombre AS Nombre,
+    u. usu_nombre AS Nombre
     FROM cita c
     INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
     ORDER BY u.usu_primer_apellido_usuar, u.usu_nombre;
