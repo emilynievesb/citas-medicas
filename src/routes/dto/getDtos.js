@@ -27,4 +27,32 @@ const getDatesProxDTO = async (req, res, next) => {
   }
 };
 
-export { getDocBySpecialityDTO, getDatesProxDTO };
+const getDatesByDocDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      id_medico: number().required(),
+    });
+    await productSchema.validate(req.query);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+const postPatientDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      acu_codigo: number().required(),
+      usu_fechNac: date().optional(),
+      usu_tipodoc: number().optional(),
+      usu_genero: number().optional(),
+      usu_acudiente: number().optional(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export { getDocBySpecialityDTO, getDatesProxDTO, getDatesByDocDTO };
