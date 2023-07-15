@@ -14,9 +14,15 @@ import {
   getPatientsAlphController,
 } from "../controllers/getDataHospital.js";
 
+import { getDocBySpecialityDTO } from "./dto/getDtos.js";
+
 const getInitRoute = () => {
   const router = Router();
-  router.get("/medicosporespecialidad", getDocBySpecialityController);
+  router.get(
+    "/medicosporespecialidad",
+    getDocBySpecialityDTO,
+    getDocBySpecialityController
+  );
   router.get("/pacientesalfabeticamente", getPatientsAlphController);
   router.get("/citasalfabeticamente", getDatesAlphController);
   router.get("/citaproxima", getDatesProxController);
