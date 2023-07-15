@@ -21,6 +21,7 @@ import {
   getDatesByPatientDTO,
   getDatesByDateDTO,
   getCountDatesByDocDateDTO,
+  getConsultorysPatientDTO,
 } from "./dto/getDtos.js";
 
 const getInitRoute = () => {
@@ -46,7 +47,11 @@ const getInitRoute = () => {
     getCountDatesByDocDateDTO,
     getCountDatesByDocDateController
   );
-  router.get("/consultoriosdepacientes", getConsultorysPatientController);
+  router.get(
+    "/consultoriosdepacientes",
+    getConsultorysPatientDTO,
+    getConsultorysPatientController
+  );
   router.get("/citasporgenero", getDatesByGenderController);
   router.get("/citasrechazas", getDatesSuspendByMontController);
   return router;
