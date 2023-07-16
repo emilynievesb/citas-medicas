@@ -3,46 +3,43 @@ import { object, string, number, date } from "yup";
 const postPatientDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      acu_codigo: number().required(),
-      acu_nombreCompleto: string()
+      cod_acudiente: number().optional(),
+      acudiente_nombre: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      acu_telefono: number().optional(),
-      acu_direccion: string()
+      acudiente_telefono: number().optional(),
+      acudiente_direccion: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_id: number().optional(),
-      usu_nombre: string()
+      documento: number().optional(),
+      primer_nombre: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_segdo_nombre: string()
+      segundo_nombre: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_primer_apellido_usuar: string()
+      primer_apellido: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_segdo_apellido_usuar: string()
+      segundo_apellido: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_telefono: number().optional(),
-      usu_direccion: string()
+      telefono: number().optional(),
+      direccion: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+        .matches(/^[a-z A-Z]+$/)
         .optional(),
-      usu_e_mail: string()
-        .strict()
-        .matches(/^[a-z A-Z]+$/, "Is not in correct format")
-        .optional(),
-      usu_fechNac: date().optional(),
-      usu_tipodoc: number().optional(),
-      usu_genero: number().optional(),
-      usu_acudiente: number().optional(),
+      email: string().strict().optional(),
+      fecha_nacimiento: date().optional(),
+      id_tipo_documento: number().optional(),
+      id_genero: number().optional(),
+      doc_acudiente: number().nullable().optional(),
     });
     await productSchema.validate(req.body);
     next();
