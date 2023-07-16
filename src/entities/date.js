@@ -42,11 +42,18 @@ class Date {
     SELECT
     c.cit_codigo AS CodigoCita,
     c.cit_fecha AS FechaCita,
-    c.cit_estadoCita AS EstadoCita,
+    c.cit_estadoCita AS IdEstadoCita,
+    e.estcita_nombre AS EstadoCita,
     c.cit_medico AS MedicoID,
-    c.cit_datosUsuario AS UsuarioID
+    m.med_nombreCompleto AS MedicoNombre,
+    c.cit_datosUsuario AS UsuarioID,
+    u.usu_primer_apellido_usuar AS PrimerApellido,
+    u. usu_nombre AS Nombre
   FROM
     cita c
+    INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+    INNER JOIN medico m ON c.cit_medico= m.med_nroMatriculaProsional
+    INNER JOIN estado_cita e ON c.cit_estadoCita = e.estcita_id
   WHERE
     c.cit_datosUsuario = ${this.usu_id}
     AND c.cit_fecha >= CURDATE()
@@ -65,11 +72,13 @@ class Date {
     SELECT u.usu_nombre AS NombrePaciente,
     u.usu_primer_apellido_usuar AS ApellidoPaciente,
     c.cit_fecha AS FechaCita,
-    m.med_especialidad AS Especialidad,
-    m.med_consultario AS Consultorio
+    e.esp_nombre AS NombreEspecialidad,
+    co.cons_nombre AS NombreConsultorio
     FROM cita c
     JOIN usuario u ON c.cit_datosUsuario = u.usu_id
     JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional
+    INNER JOIN consultorio co ON m.med_consultario = co.cons_codigo
+    INNER JOIN especialidad e ON m.med_especialidad = e.esp_id
     WHERE c.cit_medico = ${this.med_id}
     AND c.cit_estadoCita = 2;
     `;
